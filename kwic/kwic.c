@@ -11,23 +11,37 @@ int main(int argc, char* argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    printf("Parsing arguments.\n");
-
-    if (strstr(argv[1], "-f") != NULL) {
+    /* If the -f flag exists, assume the next position is the filepath*/
+    if (strstr(argv[1], "-f") != NULL) { 
         char* filename = argv[2];
-        printf("Attempting to parse file %s\n", filename);
+        char* fulltext;
+        char* line;
 
         FILE *file = NULL;
-        
+
+        line = (char*)malloc(MAX_LINE_SIZE);
+        fulltext = (char*)malloc(MAX_FULL_TEXT_SIZE);
+        memset(line, '\0', MAX_LINE_SIZE);
+        memset(fulltext, '\0', MAX_FULL_TEXT_SIZE);
+
+        printf("Attempting to parse file %s\n\n", filename);
         fopen_s(&file, filename, "r");
-        char line[100];
-       
+
+        short lineCount = 0;
+
         while (!feof(file)) {
-            if (fgets(line, (sizeof(line)), file)) {
-                printf("%s", line);
-            }
+           
+            fgets(line, 1000, file);
+            strcat_s(fulltext, MAX_LINE_SIZE, line);            
+            lineCount++;
+            printf("Line %d: %s", lineCount, line);
+            memset(line, '\0', MAX_LINE_SIZE);
         }
 
+        printf("\n\nfulltext:\n%s\n", fulltext);
+        free(line);
+        free(fulltext);
+       
         fclose(file);
     }
 
