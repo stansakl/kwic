@@ -5,7 +5,8 @@
 
 //ERROR CODES
 const short SUCCESS = 0;
-const short ERR_FILE_REQUIRED = 1001;
+const short ERR_FILE_REQUIRED  = 1001;
+const short ERR_FILE_NOT_FOUND = 1002;
 
 //sizes
 const short MAX_LINE_SIZE = 100;

@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
         char* filename = argv[2];
         char* fulltext;
         char* line;
+        int error = 0;
 
         FILE *file = NULL;
 
@@ -30,7 +31,11 @@ int main(int argc, char* argv[]) {
         memset(fulltext, '\0', MAX_FULL_TEXT_SIZE);
 
         printf("Attempting to parse file %s\n", filename);
-        fopen_s(&file, filename, "r");
+        error = fopen_s(&file, filename, "r");
+        if (error != 0) {
+            printf("Error %d. File %s was not found. Exiting.\n", ERR_FILE_NOT_FOUND, filename);
+            exit(EXIT_FAILURE);
+        }
 
         short lineCount = 0;
 
