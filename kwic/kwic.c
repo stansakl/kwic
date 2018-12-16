@@ -12,10 +12,11 @@ int main(int argc, char* argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    /* 
-    * If the -f flag exists in argv[1], assume the next position is the filepath
-    * Check to make sure there actually is something in argv[2]
-    */
+    /****************************************************************************** 
+     * If the -f flag exists in argv[1], assume the next position is the filepath *
+     * Check to make sure there actually is something in argv[2]                  *
+     * If there is, open the file, read it, and store the input locally.          * 
+     ******************************************************************************/
     if ((strstr(argv[1], "-f") != NULL) && (argv[2] != NULL)) { 
         char* filename = argv[2];
         char* fulltext;
