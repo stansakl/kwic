@@ -1,17 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "kwic.h"
 #include "kwicconst.h"
 
 int main(int argc, char* argv[]) {
 	printf("Program started.\n");
 
     if (argc == 1) {
-        printf("ERROR %d: A file name is required!\n", ERR_FILE_REQUIRED);
+        showFileArgumentError();
         exit(EXIT_FAILURE);
     }
 
-    /* If the -f flag exists, assume the next position is the filepath*/
+    /* 
+    * If the -f flag exists in argv[1], assume the next position is the filepath
+    * Check to make sure there actually is something in argv[2]
+    */
     if ((strstr(argv[1], "-f") != NULL) && (argv[2] != NULL)) { 
         char* filename = argv[2];
         char* fulltext;
@@ -40,15 +44,19 @@ int main(int argc, char* argv[]) {
         }
 
         printf("\nfulltext:\n%s\n", fulltext);
+
         free(line);
-        free(fulltext);
-       
+        free(fulltext);       
         fclose(file);
     }
     else {
-        printf("ERROR %d: A file name is required!\n", ERR_FILE_REQUIRED);
+        showFileArgumentError();
         exit(EXIT_FAILURE);
     }
 
     return EXIT_SUCCESS;
+}
+
+void showFileArgumentError() {
+    printf("ERROR %d: A file name is required!\n", ERR_FILE_REQUIRED);
 }

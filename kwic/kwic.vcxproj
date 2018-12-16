@@ -22,6 +22,7 @@
     <ClCompile Include="kwic.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="kwic.h" />
     <ClInclude Include="kwicconst.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
