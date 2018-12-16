@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
     }
 
     /* If the -f flag exists, assume the next position is the filepath*/
-    if (strstr(argv[1], "-f") != NULL) { 
+    if ((strstr(argv[1], "-f") != NULL) && (argv[2] != NULL)) { 
         char* filename = argv[2];
         char* fulltext;
         char* line;
@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
         memset(line, '\0', MAX_LINE_SIZE);
         memset(fulltext, '\0', MAX_FULL_TEXT_SIZE);
 
-        printf("Attempting to parse file %s\n\n", filename);
+        printf("Attempting to parse file %s\n", filename);
         fopen_s(&file, filename, "r");
 
         short lineCount = 0;
@@ -34,15 +34,20 @@ int main(int argc, char* argv[]) {
             fgets(line, 1000, file);
             strcat_s(fulltext, MAX_LINE_SIZE, line);            
             lineCount++;
-            printf("Line %d: %s", lineCount, line);
+
+            /* Clear the line before the next loop*/
             memset(line, '\0', MAX_LINE_SIZE);
         }
 
-        printf("\n\nfulltext:\n%s\n", fulltext);
+        printf("\nfulltext:\n%s\n", fulltext);
         free(line);
         free(fulltext);
        
         fclose(file);
+    }
+    else {
+        printf("ERROR %d: A file name is required!\n", ERR_FILE_REQUIRED);
+        exit(EXIT_FAILURE);
     }
 
     return EXIT_SUCCESS;
