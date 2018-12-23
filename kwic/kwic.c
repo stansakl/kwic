@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
         while (!feof(file)) {
            
             fgets(line, 1000, file);
-			//sortLine(line);
+			sortLine(line);
             strcat_s(fulltext, MAX_LINE_SIZE, line);            
             lineCount++;
 
@@ -70,18 +70,39 @@ void showFileArgumentError() {
 char* sortLine(char* lineToSort) {
 
 	char* temp = (char*)malloc(MAX_LINE_SIZE);
-	char* context = (char*)malloc(MAX_LINE_SIZE);
-	//memset(context, '\0', sizeof(*context));
+	char* nextToken = (char*)malloc(MAX_LINE_SIZE);
+	memset(nextToken, '\0', sizeof(*nextToken));
 	char* tokens = malloc(sizeof(*tokens));
-	//memset(tokens, '\0', sizeof(*tokens));
+	memset(tokens, '\0', sizeof(*tokens));
+	char* tempArray[100];
+	memset(tempArray, '\0', 100);
+	int arrayCounter = 0;
+	//for(;;) {
+	//*(tokens = strtok_s(lineToSort, " ", &nextToken));
+	tempArray[0] = (strtok_s(lineToSort, " ", &nextToken));
+	printf("tempArray[%d]: %s\n", arrayCounter, tempArray[arrayCounter]);
 
-	for (int i = 0; i < strlen(lineToSort); i++) {
-		printf("Token: %s\n", strtok_s(lineToSort, " ", &context));
+	while(1) {
+		
+		/*printf("Token: %s\n", tokens);
+		printf("Context: %s\n", nextToken);*/
+		arrayCounter++;
+		if (arrayCounter == 100) break;
+		tempArray[arrayCounter] = (strtok_s(NULL, " ", &nextToken));
+
+		/*if (nextToken != '\0') {
+			printf("Token: %s\n", tokens);
+			printf("Next Token: %s\n", nextToken);
+		}*/
+
+	//	for (int i = 0; i < arrayCounter; i++) {
+			printf("tempArray[%d]: %s\n", arrayCounter, tempArray[arrayCounter]);
+	//	}
+		if (*nextToken == '\0') break;
+
 	}
-	
-	
 	//TODO: The actual sorting
 	
-	return lineToSort;
+	return *tempArray;
 
 }
