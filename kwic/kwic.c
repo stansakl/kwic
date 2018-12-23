@@ -74,19 +74,9 @@ char* sortLine(char* lineToSort) {
 	memset(context, NULL, sizeof(**context));
 	char* tokens = malloc(sizeof(*tokens));
 	memset(tokens, NULL, sizeof(*tokens));
-	//tokens = strtok_s(lineToSort, ' ', context);
-
-	//while (tokens++ != NULL) {
-	//	printf("Token: %s", tokens);
-	//}
-
-	/*for (int i = 0; i < len(lineToSort); i++) {
-		strcat_s(temp, MAX_LINE_SIZE, lineToSort);
-	}*/
-
-	free(temp);
-	free(context);
-	free(tokens);
+	
+	//TODO: The actual sorting
+	
 	return *lineToSort;
 
 }
