@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
         while (!feof(file)) {
            
             fgets(line, 1000, file);
-			sortLine(line);
+			//sortLine(line);
             strcat_s(fulltext, MAX_LINE_SIZE, line);            
             lineCount++;
 
@@ -70,13 +70,18 @@ void showFileArgumentError() {
 char* sortLine(char* lineToSort) {
 
 	char* temp = (char*)malloc(MAX_LINE_SIZE);
-	char** context = (char**)malloc(sizeof(**context));
-	memset(context, NULL, sizeof(**context));
+	char* context = (char*)malloc(MAX_LINE_SIZE);
+	//memset(context, '\0', sizeof(*context));
 	char* tokens = malloc(sizeof(*tokens));
-	memset(tokens, NULL, sizeof(*tokens));
+	//memset(tokens, '\0', sizeof(*tokens));
+
+	for (int i = 0; i < strlen(lineToSort); i++) {
+		printf("Token: %s\n", strtok_s(lineToSort, " ", &context));
+	}
+	
 	
 	//TODO: The actual sorting
 	
-	return *lineToSort;
+	return lineToSort;
 
 }
