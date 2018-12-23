@@ -22,7 +22,6 @@ int main(int argc, char* argv[]) {
         char* fulltext;
         char* line;
         int error = 0;
-
         FILE *file = NULL;
 
         line = (char*)malloc(MAX_LINE_SIZE);
@@ -42,6 +41,7 @@ int main(int argc, char* argv[]) {
         while (!feof(file)) {
            
             fgets(line, 1000, file);
+			sortLine(line);
             strcat_s(fulltext, MAX_LINE_SIZE, line);            
             lineCount++;
 
@@ -65,4 +65,28 @@ int main(int argc, char* argv[]) {
 
 void showFileArgumentError() {
     printf("ERROR %d: A file name is required!\n", ERR_FILE_REQUIRED);
+}
+
+char* sortLine(char* lineToSort) {
+
+	char* temp = (char*)malloc(MAX_LINE_SIZE);
+	char** context = (char**)malloc(sizeof(**context));
+	memset(context, NULL, sizeof(**context));
+	char* tokens = malloc(sizeof(*tokens));
+	memset(tokens, NULL, sizeof(*tokens));
+	//tokens = strtok_s(lineToSort, ' ', context);
+
+	//while (tokens++ != NULL) {
+	//	printf("Token: %s", tokens);
+	//}
+
+	/*for (int i = 0; i < len(lineToSort); i++) {
+		strcat_s(temp, MAX_LINE_SIZE, lineToSort);
+	}*/
+
+	free(temp);
+	free(context);
+	free(tokens);
+	return *lineToSort;
+
 }
