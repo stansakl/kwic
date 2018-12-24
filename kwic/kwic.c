@@ -4,6 +4,9 @@
 #include "kwic.h"
 #include "kwicconst.h"
 
+typedef int BOOL;
+const BOOL TRUE = 1;
+
 int main(int argc, char* argv[]) {
 	printf("Program started.\n");
 
@@ -40,8 +43,7 @@ int main(int argc, char* argv[]) {
 		char* destination;
 		destination = (char*)malloc(MAX_LINE_SIZE);
 		memset(destination, '\0', MAX_LINE_SIZE);
-		const char* SPACE = (char*)' ';
-
+		
         while (!feof(file)) {
            
             fgets(line, 1000, file);
@@ -88,7 +90,7 @@ sortLine(char* lineToSort, char* destination) {
 	tempArray[0] = (strtok_s(lineToSort, " ", &nextToken));
 	printf("tempArray[%d]: %s\n", arrayCounter, tempArray[arrayCounter]);
 
-	while(1) {
+	while(TRUE) {
 		
 		arrayCounter++;
 		if (arrayCounter == 100) break;
