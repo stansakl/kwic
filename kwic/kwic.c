@@ -34,6 +34,7 @@ int main(int argc, char* argv[]) {
 
         printf("Attempting to parse file %s\n", filename);
         error = fopen_s(&file, filename, "r");
+
         if (error != 0) {
             printf("Error %d. File %s was not found. Exiting.\n", ERR_FILE_NOT_FOUND, filename);
             exit(EXIT_FAILURE);
