@@ -104,7 +104,7 @@ sortLine(char* lineToSort, char* destination) {
 	}
 	char *space = " ";
 	//This loop is temporary until we can actually sort.
-	for (int i = 0; i < arrayCounter + 1; i++) {
+	for (int i = 0; i <= arrayCounter; i++) {
 		strcat_s(destination, MAX_LINE_SIZE ,tempArray[i]);
 		strcat_s(destination, MAX_LINE_SIZE, space);
 	}
