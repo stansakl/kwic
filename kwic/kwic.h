@@ -3,7 +3,8 @@
 #define KWIC_H
 
 //FUNCTION PROTOTYPES
-char* sortLine(char* lineToSort);
+//char* sortLine(char* lineToSort);
+sortLine(char* lineToSort, char* destination);
 void showFileArgumentError();
 
 #endif // !KWIC_H

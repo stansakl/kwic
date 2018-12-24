@@ -37,22 +37,32 @@ int main(int argc, char* argv[]) {
         }
 
         short lineCount = 0;
+		char* destination;
+		destination = (char*)malloc(MAX_LINE_SIZE);
+		memset(destination, '\0', MAX_LINE_SIZE);
+		const char* SPACE = (char*)' ';
 
         while (!feof(file)) {
            
             fgets(line, 1000, file);
-			sortLine(line);
-            strcat_s(fulltext, MAX_LINE_SIZE, line);            
+			sortLine(line, destination);
+			printf("Line: %s\tDestination: %s\n", line, destination);
+            strcat_s(fulltext, MAX_LINE_SIZE, destination); 
+			//strcat_s(fulltext, MAX_LINE_SIZE, SPACE);
             lineCount++;
 
             /* Clear the line before the next loop*/
+			line = (char*)realloc(line, MAX_LINE_SIZE);
+			//destination = (char*)realloc(destination, MAX_LINE_SIZE);
             memset(line, '\0', MAX_LINE_SIZE);
+			memset(destination, '\0', MAX_LINE_SIZE);
         }
 
         printf("\nfulltext:\n%s\n", fulltext);
 
         free(line);
-        free(fulltext);       
+        free(fulltext);  
+		//free(destination);
         fclose(file);
     }
     else {
@@ -67,42 +77,31 @@ void showFileArgumentError() {
     printf("ERROR %d: A file name is required!\n", ERR_FILE_REQUIRED);
 }
 
-char* sortLine(char* lineToSort) {
+sortLine(char* lineToSort, char* destination) {
 
-	char* temp = (char*)malloc(MAX_LINE_SIZE);
-	char* nextToken = (char*)malloc(MAX_LINE_SIZE);
-	memset(nextToken, '\0', sizeof(*nextToken));
-	char* tokens = malloc(sizeof(*tokens));
-	memset(tokens, '\0', sizeof(*tokens));
+	char* nextToken;
+	nextToken = (char*)calloc(MAX_LINE_SIZE, sizeof(nextToken));
 	char* tempArray[100];
+	tempArray[0] = calloc(100, sizeof(tempArray));
+	memset(nextToken, '\0', sizeof(*nextToken));		
 	memset(tempArray, '\0', 100);
-	int arrayCounter = 0;
-	//for(;;) {
-	//*(tokens = strtok_s(lineToSort, " ", &nextToken));
+
+	int arrayCounter = 0;	
 	tempArray[0] = (strtok_s(lineToSort, " ", &nextToken));
 	printf("tempArray[%d]: %s\n", arrayCounter, tempArray[arrayCounter]);
 
 	while(1) {
 		
-		/*printf("Token: %s\n", tokens);
-		printf("Context: %s\n", nextToken);*/
 		arrayCounter++;
 		if (arrayCounter == 100) break;
 		tempArray[arrayCounter] = (strtok_s(NULL, " ", &nextToken));
 
-		/*if (nextToken != '\0') {
-			printf("Token: %s\n", tokens);
-			printf("Next Token: %s\n", nextToken);
-		}*/
+		if (tempArray[arrayCounter] == '\0') break;
+		printf("tempArray[%d]: %s\n", arrayCounter, tempArray[arrayCounter]);
 
-	//	for (int i = 0; i < arrayCounter; i++) {
-			printf("tempArray[%d]: %s\n", arrayCounter, tempArray[arrayCounter]);
-	//	}
 		if (*nextToken == '\0') break;
 
 	}
 	//TODO: The actual sorting
-	
-	return *tempArray;
-
+	strcpy_s(destination, sizeof(tempArray), *tempArray);
 }
