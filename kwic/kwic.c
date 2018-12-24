@@ -101,11 +101,11 @@ sortLine(char* lineToSort, char* destination) {
 		printf("tempArray[%d]: %s\n", arrayCounter, tempArray[arrayCounter]);
 
 		if (*nextToken == '\0') break;
-
 	}
-
+	char *space = " ";
 	//This loop is temporary until we can actually sort.
 	for (int i = 0; i < arrayCounter + 1; i++) {
 		strcat_s(destination, MAX_LINE_SIZE ,tempArray[i]);
+		strcat_s(destination, MAX_LINE_SIZE, space);
 	}
 }
