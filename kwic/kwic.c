@@ -48,12 +48,11 @@ int main(int argc, char* argv[]) {
 			sortLine(line, destination);
 			printf("Line: %s\tDestination: %s\n", line, destination);
             strcat_s(fulltext, MAX_LINE_SIZE, destination); 
-			//strcat_s(fulltext, MAX_LINE_SIZE, SPACE);
             lineCount++;
 
             /* Clear the line before the next loop*/
 			line = (char*)realloc(line, MAX_LINE_SIZE);
-			//destination = (char*)realloc(destination, MAX_LINE_SIZE);
+			destination = (char*)realloc(destination, MAX_LINE_SIZE);
             memset(line, '\0', MAX_LINE_SIZE);
 			memset(destination, '\0', MAX_LINE_SIZE);
         }
@@ -62,7 +61,6 @@ int main(int argc, char* argv[]) {
 
         free(line);
         free(fulltext);  
-		//free(destination);
         fclose(file);
     }
     else {
@@ -102,6 +100,9 @@ sortLine(char* lineToSort, char* destination) {
 		if (*nextToken == '\0') break;
 
 	}
-	//TODO: The actual sorting
-	strcpy_s(destination, sizeof(tempArray), *tempArray);
+
+	//This loop is temporary until we can actually sort.
+	for (int i = 0; i < arrayCounter + 1; i++) {
+		strcat_s(destination, MAX_LINE_SIZE ,tempArray[i]);
+	}
 }
