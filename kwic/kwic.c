@@ -105,20 +105,23 @@ sortLine(char* lineToSort, char* destination) {
 
 	char* temp;
 	int whileCounter = arrayCounter; /* Need a new variable so arrayCounter isn't modified. */
-
-	while (whileCounter >= 0) {
+	int result = 0;
+	while (TRUE) {
 		
+		result = strcmp(tempArray[whileCounter - 1], tempArray[whileCounter]);
 
-		if (strcmp(tempArray[whileCounter - 1], tempArray[whileCounter]) > 0) {
+		printf("Result: %d\t tempArray[%d]: %s, tempArray[%d]: %s\n\n", 
+			result, whileCounter - 1, tempArray[whileCounter - 1], whileCounter , tempArray[whileCounter]);
+
+		if (result > 0) {
 			temp = tempArray[whileCounter];
 			tempArray[whileCounter] = tempArray[whileCounter - 1];
 			tempArray[whileCounter - 1] = temp;
 		}
-		else {
-			temp = tempArray[whileCounter - 1];
-			tempArray[whileCounter - 1] = tempArray[whileCounter];
-			tempArray[whileCounter] = temp;
-		}
+
+		printf("After Swap:\nResult: %d\t tempArray[%d]: %s, tempArray[%d]: %s\n",
+			result, whileCounter - 1, tempArray[whileCounter - 1], whileCounter, tempArray[whileCounter]);
+		
 		whileCounter--;
 		if ((whileCounter - 1) < 0) break;
 	}
