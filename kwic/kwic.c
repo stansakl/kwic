@@ -96,7 +96,7 @@ sortLine(char* lineToSort, char* destination) {
 		arrayCounter++;
 		if (arrayCounter == 100) break;
 		tempArray[arrayCounter] = (strtok_s(NULL, " ", &nextToken));
-
+		
 		if (tempArray[arrayCounter] == '\0') break;
 		printf("tempArray[%d]: %s\n", arrayCounter, tempArray[arrayCounter]);
 
@@ -110,8 +110,8 @@ sortLine(char* lineToSort, char* destination) {
 		
 		result = strcmp(tempArray[whileCounter - 1], tempArray[whileCounter]);
 
-		printf("Result: %d\t tempArray[%d]: %s, tempArray[%d]: %s\n\n", 
-			result, whileCounter - 1, tempArray[whileCounter - 1], whileCounter , tempArray[whileCounter]);
+		/*printf("Result: %d\t tempArray[%d]: %s, tempArray[%d]: %s\n\n", 
+			result, whileCounter - 1, tempArray[whileCounter - 1], whileCounter , tempArray[whileCounter]);*/
 
 		if (result > 0) {
 			temp = tempArray[whileCounter];
@@ -119,8 +119,8 @@ sortLine(char* lineToSort, char* destination) {
 			tempArray[whileCounter - 1] = temp;
 		}
 
-		printf("After Swap:\nResult: %d\t tempArray[%d]: %s, tempArray[%d]: %s\n",
-			result, whileCounter - 1, tempArray[whileCounter - 1], whileCounter, tempArray[whileCounter]);
+		/*printf("After Swap:\nResult: %d\t tempArray[%d]: %s, tempArray[%d]: %s\n",
+			result, whileCounter - 1, tempArray[whileCounter - 1], whileCounter, tempArray[whileCounter]);*/
 		
 		whileCounter--;
 		if ((whileCounter - 1) < 0) break;
