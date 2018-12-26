@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
            
             fgets(line, 1000, file);
 			sortLine(line, destination);
-			printf("Line: %s\tDestination: %s\n", line, destination);
+		//	printf("Line: %s\tDestination: %s\n", line, destination);
             strcat_s(fulltext, MAX_LINE_SIZE, destination); 
             lineCount++;
 
@@ -102,13 +102,28 @@ sortLine(char* lineToSort, char* destination) {
 
 		if (*nextToken == '\0') break;
 	}
-	char *space = " ";
+	//char *space = " ";
+	char* temp;
+	int whileCounter = arrayCounter; /* Need a new variable so arrayCounter isn't modified. */
+
+	while (whileCounter >= 0) {
+		if ((whileCounter - 1) < 0) break;
+
+		if (strcmp(tempArray[whileCounter - 1], tempArray[whileCounter]) > 0) {
+			temp = tempArray[whileCounter - 1];
+			tempArray[whileCounter - 1] = tempArray[whileCounter];
+			tempArray[whileCounter] = temp;
+		}
+		whileCounter--;
+	}
 	//This loop is temporary until we can actually sort.
 	for (int i = 0; i <= arrayCounter; i++) {
 		strcat_s(destination, MAX_LINE_SIZE ,tempArray[i]);
 
 		if (i != arrayCounter) { /* Prevent the first character of a line from being a space*/
-			strcat_s(destination, MAX_LINE_SIZE, space);
+			strcat_s(destination, MAX_LINE_SIZE, " ");
 		}
+		else
+			strcat_s(destination, MAX_LINE_SIZE, "\n");
 	}
 }
