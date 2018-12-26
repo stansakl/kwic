@@ -102,20 +102,32 @@ sortLine(char* lineToSort, char* destination) {
 
 		if (*nextToken == '\0') break;
 	}
-	//char *space = " ";
+
 	char* temp;
 	int whileCounter = arrayCounter; /* Need a new variable so arrayCounter isn't modified. */
 
 	while (whileCounter >= 0) {
-		if ((whileCounter - 1) < 0) break;
+		
 
 		if (strcmp(tempArray[whileCounter - 1], tempArray[whileCounter]) > 0) {
+			temp = tempArray[whileCounter];
+			tempArray[whileCounter] = tempArray[whileCounter - 1];
+			tempArray[whileCounter - 1] = temp;
+		}
+		else {
 			temp = tempArray[whileCounter - 1];
 			tempArray[whileCounter - 1] = tempArray[whileCounter];
 			tempArray[whileCounter] = temp;
 		}
 		whileCounter--;
+		if ((whileCounter - 1) < 0) break;
 	}
+
+	for (int i = 0; i <= arrayCounter; i++)
+	{
+		printf("Sorted tempArray[%d]: %s\n", i, tempArray[i]);
+	}
+
 	//This loop is temporary until we can actually sort.
 	for (int i = 0; i <= arrayCounter; i++) {
 		strcat_s(destination, MAX_LINE_SIZE ,tempArray[i]);
