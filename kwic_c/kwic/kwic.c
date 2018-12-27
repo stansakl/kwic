@@ -107,6 +107,7 @@ void showFileArgumentError() {
     printf("ERROR %d: A file name is required!\n", ERR_FILE_REQUIRED);
 }
 
+/* Performs a Bubble Sort on lineToSort and stores the results in destination. */
 sortLine(char* lineToSort, char* destination) {
 
 	char* nextToken;
