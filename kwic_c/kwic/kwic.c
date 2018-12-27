@@ -4,6 +4,10 @@
 #include "kwic.h"
 #include "kwicconst.h"
 
+typedef int BOOL;
+const BOOL TRUE = 1;
+const BOOL FALSE = 0;
+
 int main(int argc, char* argv[]) {
 	printf("Program started.\n");
 
@@ -31,6 +35,7 @@ int main(int argc, char* argv[]) {
 
         printf("Attempting to parse file %s\n", filename);
         error = fopen_s(&file, filename, "r");
+
         if (error != 0) {
             printf("Error %d. File %s was not found. Exiting.\n", ERR_FILE_NOT_FOUND, filename);
             exit(EXIT_FAILURE);
@@ -40,13 +45,12 @@ int main(int argc, char* argv[]) {
 		char* destination;
 		destination = (char*)malloc(MAX_LINE_SIZE);
 		memset(destination, '\0', MAX_LINE_SIZE);
-		const char* SPACE = (char*)' ';
-
+		
         while (!feof(file)) {
            
             fgets(line, 1000, file);
 			sortLine(line, destination);
-			printf("Line: %s\tDestination: %s\n", line, destination);
+		//	printf("Line: %s\tDestination: %s\n", line, destination);
             strcat_s(fulltext, MAX_LINE_SIZE, destination); 
             lineCount++;
 
@@ -87,22 +91,60 @@ sortLine(char* lineToSort, char* destination) {
 	int arrayCounter = 0;	
 	tempArray[0] = (strtok_s(lineToSort, " ", &nextToken));
 	printf("tempArray[%d]: %s\n", arrayCounter, tempArray[arrayCounter]);
-
-	while(1) {
+	
+	while(TRUE) {
 		
 		arrayCounter++;
 		if (arrayCounter == 100) break;
 		tempArray[arrayCounter] = (strtok_s(NULL, " ", &nextToken));
-
+		
 		if (tempArray[arrayCounter] == '\0') break;
 		printf("tempArray[%d]: %s\n", arrayCounter, tempArray[arrayCounter]);
 
 		if (*nextToken == '\0') break;
-
 	}
 
-	//This loop is temporary until we can actually sort.
-	for (int i = 0; i < arrayCounter + 1; i++) {
-		strcat_s(destination, MAX_LINE_SIZE ,tempArray[i]);
+	char* temp;
+	int result = 0;
+	BOOL sorted = FALSE;
+
+	while (sorted == FALSE) {
+		sorted = TRUE;
+		
+		for (int i = 0; i < arrayCounter; i++) {
+			result = strcmp(tempArray[i], tempArray[i + 1]);
+
+			printf("Result: %d\t tempArray[%d]: %s, tempArray[%d]: %s\n\n",
+				result, i, tempArray[i], i + 1, tempArray[i + 1]);
+
+			if (result > 0) {
+				sorted = FALSE;
+				temp = tempArray[i + 1];
+				tempArray[i + 1] = tempArray[i];
+				tempArray[i] = temp;
+
+				printf("After Swap:\nResult: %d\t tempArray[%d]: %s, tempArray[%d]: %s\n",
+					result, i, tempArray[i], i + 1, tempArray[i + 1]);
+			}
+			else {
+				printf("No swap required!\n");
+			}
+		}
+	}
+
+	for (int i = 0; i <= arrayCounter; i++)
+	{
+		printf("Sorted tempArray[%d]: %s\n", i, tempArray[i]);
+	}
+
+	//This loop is for modifying the destination
+	for (int i = 0; i <= arrayCounter; i++) {
+		strcat_s(destination, MAX_LINE_SIZE, tempArray[i]);
+
+		if (i != arrayCounter) { /* Prevent the first character of a line from being a space*/
+			strcat_s(destination, MAX_LINE_SIZE, " ");
+		}
+		else
+			strcat_s(destination, MAX_LINE_SIZE, "\n");
 	}
 }
