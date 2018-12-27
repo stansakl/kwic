@@ -6,6 +6,7 @@
 
 typedef int BOOL;
 const BOOL TRUE = 1;
+const BOOL FALSE = 0;
 
 int main(int argc, char* argv[]) {
 	printf("Program started.\n");
@@ -90,7 +91,7 @@ sortLine(char* lineToSort, char* destination) {
 	int arrayCounter = 0;	
 	tempArray[0] = (strtok_s(lineToSort, " ", &nextToken));
 	printf("tempArray[%d]: %s\n", arrayCounter, tempArray[arrayCounter]);
-
+	
 	while(TRUE) {
 		
 		arrayCounter++;
@@ -104,26 +105,31 @@ sortLine(char* lineToSort, char* destination) {
 	}
 
 	char* temp;
-	int whileCounter = arrayCounter; /* Need a new variable so arrayCounter isn't modified. */
 	int result = 0;
-	while (TRUE) {
+	BOOL sorted = FALSE;
+
+	while (sorted == FALSE) {
+		sorted = TRUE;
 		
-		result = strcmp(tempArray[whileCounter - 1], tempArray[whileCounter]);
+		for (int i = 0; i < arrayCounter; i++) {
+			result = strcmp(tempArray[i], tempArray[i + 1]);
 
-		/*printf("Result: %d\t tempArray[%d]: %s, tempArray[%d]: %s\n\n", 
-			result, whileCounter - 1, tempArray[whileCounter - 1], whileCounter , tempArray[whileCounter]);*/
+			printf("Result: %d\t tempArray[%d]: %s, tempArray[%d]: %s\n\n",
+				result, i, tempArray[i], i + 1, tempArray[i + 1]);
 
-		if (result > 0) {
-			temp = tempArray[whileCounter];
-			tempArray[whileCounter] = tempArray[whileCounter - 1];
-			tempArray[whileCounter - 1] = temp;
+			if (result > 0) {
+				sorted = FALSE;
+				temp = tempArray[i + 1];
+				tempArray[i + 1] = tempArray[i];
+				tempArray[i] = temp;
+
+				printf("After Swap:\nResult: %d\t tempArray[%d]: %s, tempArray[%d]: %s\n",
+					result, i, tempArray[i], i + 1, tempArray[i + 1]);
+			}
+			else {
+				printf("No swap required!\n");
+			}
 		}
-
-		/*printf("After Swap:\nResult: %d\t tempArray[%d]: %s, tempArray[%d]: %s\n",
-			result, whileCounter - 1, tempArray[whileCounter - 1], whileCounter, tempArray[whileCounter]);*/
-		
-		whileCounter--;
-		if ((whileCounter - 1) < 0) break;
 	}
 
 	for (int i = 0; i <= arrayCounter; i++)
@@ -131,7 +137,7 @@ sortLine(char* lineToSort, char* destination) {
 		printf("Sorted tempArray[%d]: %s\n", i, tempArray[i]);
 	}
 
-	//This loop is temporary until we can actually sort.
+	//This loop is for modifying the destination
 	for (int i = 0; i <= arrayCounter; i++) {
 		strcat_s(destination, MAX_LINE_SIZE, tempArray[i]);
 
