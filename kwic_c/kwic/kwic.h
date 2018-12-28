@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 //FUNCTION PROTOTYPES
 //char* sortLine(char* lineToSort);
-sortLine(char* lineToSort, char* destination);
+void sortLine(char* lineToSort, char* destination);
 void showFileArgumentError();
 
 #endif // !KWIC_H
