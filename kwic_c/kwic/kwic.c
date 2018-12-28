@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
         memset(line, '\0', MAX_LINE_SIZE);
         memset(fulltext, '\0', MAX_FULL_TEXT_SIZE);
 
-        printf("Attempting to parse file %s\n", filename);
+        printf("Attempting to parse file %s\n\n", filename);
         error = fopen_s(&file, filename, "r");
 
         if (error != 0) {
@@ -77,8 +77,8 @@ int main(int argc, char* argv[]) {
         while (!feof(file)) {
            
             fgets(line, 1000, file);
+			printf("Input line: %s\n", line);
 			sortLine(line, destination);
-		//	printf("Line: %s\tDestination: %s\n", line, destination);
             strcat_s(fulltext, MAX_LINE_SIZE, destination); 
             lineCount++;
 
@@ -119,7 +119,6 @@ sortLine(char* lineToSort, char* destination) {
 
 	int arrayCounter = 0;	
 	tempArray[0] = (strtok_s(lineToSort, " ", &nextToken));
-	printf("tempArray[%d]: %s\n", arrayCounter, tempArray[arrayCounter]);
 	
 	while(TRUE) {
 		
@@ -128,7 +127,6 @@ sortLine(char* lineToSort, char* destination) {
 		tempArray[arrayCounter] = (strtok_s(NULL, " ", &nextToken));
 		
 		if (tempArray[arrayCounter] == '\0') break;
-		printf("tempArray[%d]: %s\n", arrayCounter, tempArray[arrayCounter]);
 
 		if (*nextToken == '\0') break;
 	}
@@ -143,31 +141,30 @@ sortLine(char* lineToSort, char* destination) {
 		for (int i = 0; i < arrayCounter; i++) {
 			result = strcmp(tempArray[i], tempArray[i + 1]);
 
-			printf("Result: %d\t tempArray[%d]: %s, tempArray[%d]: %s\n\n",
-				result, i, tempArray[i], i + 1, tempArray[i + 1]);
-
 			if (result > 0) {
 				sorted = FALSE;
 				temp = tempArray[i + 1];
 				tempArray[i + 1] = tempArray[i];
 				tempArray[i] = temp;
-
-				printf("After Swap:\nResult: %d\t tempArray[%d]: %s, tempArray[%d]: %s\n",
-					result, i, tempArray[i], i + 1, tempArray[i + 1]);
-			}
-			else {
-				printf("No swap required!\n");
 			}
 		}
 	}
 
-	for (int i = 0; i <= arrayCounter; i++)
-	{
-		printf("Sorted tempArray[%d]: %s\n", i, tempArray[i]);
-	}
-
 	//This loop is for modifying the destination
 	for (int i = 0; i <= arrayCounter; i++) {
+		
+		char* newLine = (strstr(tempArray[i], "\n"));
+
+		if (newLine != NULL) {
+			int length = (int)strlen(tempArray[i]);
+
+			for (int j = 0; j < length; j++) {
+
+				if (tempArray[i][j] == '\n') {
+					tempArray[i][j] = '\0';
+				}
+			}
+		}
 		strcat_s(destination, MAX_LINE_SIZE, tempArray[i]);
 
 		if (i != arrayCounter) { /* Prevent the first character of a line from being a space*/
