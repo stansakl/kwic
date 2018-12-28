@@ -37,7 +37,6 @@ const BOOL TRUE = 1;
 const BOOL FALSE = 0;
 
 int main(int argc, char* argv[]) {
-	printf("Program started.\n");
 
     if (argc == 1) {
         showFileArgumentError();
@@ -61,7 +60,6 @@ int main(int argc, char* argv[]) {
         memset(line, '\0', MAX_LINE_SIZE);
         memset(fulltext, '\0', MAX_FULL_TEXT_SIZE);
 
-        printf("Attempting to parse file %s\n\n", filename);
         error = fopen_s(&file, filename, "r");
 
         if (error != 0) {
@@ -108,37 +106,31 @@ void showFileArgumentError() {
 }
 
 /* Performs a Bubble Sort on lineToSort and stores the results in destination. */
-sortLine(char* lineToSort, char* destination) {
+void sortLine(char* lineToSort, char* destination) {
 
 	char* nextToken;
 	nextToken = (char*)calloc(MAX_LINE_SIZE, sizeof(nextToken));
 	char* tempArray[100];
 	tempArray[0] = calloc(100, sizeof(tempArray));
 	memset(nextToken, '\0', sizeof(*nextToken));		
-	memset(tempArray, '\0', 100);
+	memset(tempArray, '\0', MAX_LINE_SIZE);
 
-	int arrayCounter = 0;	
+	short arrayCounter = 0;	
 	tempArray[0] = (strtok_s(lineToSort, " ", &nextToken));
 	
-	while(TRUE) {
-		
+	while(*nextToken != '\0') {
 		arrayCounter++;
-		if (arrayCounter == 100) break;
 		tempArray[arrayCounter] = (strtok_s(NULL, " ", &nextToken));
-		
-		if (tempArray[arrayCounter] == '\0') break;
-
-		if (*nextToken == '\0') break;
 	}
 
 	char* temp;
-	int result = 0;
+	short result = 0;
 	BOOL sorted = FALSE;
 
 	while (sorted == FALSE) {
 		sorted = TRUE;
 		
-		for (int i = 0; i < arrayCounter; i++) {
+		for (short i = 0; i < arrayCounter; i++) {
 			result = strcmp(tempArray[i], tempArray[i + 1]);
 
 			if (result > 0) {
