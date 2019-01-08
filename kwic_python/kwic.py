@@ -27,15 +27,23 @@
 if __name__ == '__main__':
     print("Running kwic.py")
 
-    file = open("input.txt", "r", 1)
-    lines = file.readlines()
+    inputFile = open("input.txt", "r", 1)
+    outputFile = open("output.txt", "w", 1)
+    lines = inputFile.readlines()
 
     for line in lines:
         substring = line.split()
         substring.sort()
+        sortedString = []
 
         for string in substring:
-            print(string)
-        
-        print()
-    file.close()
+            #print(string)
+            sortedString.append(string)
+            outputFile.write(string)
+            outputFile.write(" ")
+
+        outputFile.write("\n")
+        print(sortedString)
+
+    inputFile.close()
+    outputFile.close()
