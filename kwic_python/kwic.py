@@ -29,9 +29,13 @@ if __name__ == '__main__':
 
     file = open("input.txt", "r", 1)
     lines = file.readlines()
-    count = 0
+
     for line in lines:
-        count = count + 1
-        print("Found line %d: %s" % (count, line))
+        substring = line.split()
+        substring.sort()
+
+        for string in substring:
+            print(string)
         
+        print()
     file.close()
