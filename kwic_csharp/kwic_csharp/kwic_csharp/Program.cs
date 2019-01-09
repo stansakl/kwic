@@ -27,9 +27,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace kwic_csharp
 {
@@ -37,6 +35,40 @@ namespace kwic_csharp
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Running kwic_csharp");
+
+            if (args.Length == 1)
+            {
+                string fileName = args[0];
+
+                try
+                {
+                    IEnumerable<string> lines = File.ReadLines(fileName);
+                    foreach(string line in lines)
+                    {
+                        Console.WriteLine(line);
+                    }
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
+            }
+
+            else
+            {
+                ShowFileArgumentError();
+            }
+
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+        }
+
+
+        private static void ShowFileArgumentError()
+        {
+            Console.WriteLine("A file name is required!");
         }
     }
 }
