@@ -26,9 +26,23 @@
 
 puts("Running kwic in Ruby")
 
-
 inputFile = File.open('input.txt').read
-
+wordList = []
+sortedWordlist = []
+output = ""
 inputFile.each_line do |line|
-    print "#{line}"
-  end
+    print "#{line}\n"
+    wordList = line.split(' ')
+    sortedWordlist = wordList.sort()
+
+    for word in sortedWordlist
+        output += word
+        output += " "
+    end
+    output += "\n"
+end
+
+puts(output)
+
+
+
