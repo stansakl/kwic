@@ -23,3 +23,12 @@
 # CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+puts("Running kwic in Ruby")
+
+
+inputFile = File.open('input.txt').read
+
+inputFile.each_line do |line|
+    print "#{line}"
+  end
