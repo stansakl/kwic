@@ -23,3 +23,39 @@
 # CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+puts("Running kwic in Ruby")
+
+if ARGV.length != 1
+    puts "A file name is required!"
+    exit
+end
+
+inputFile = ""
+wordList = []
+sortedWordlist = []
+output = ""
+
+begin 
+    inputFile = File.open(ARGV[0]).read
+
+    inputFile.each_line do |line|
+        wordList = line.split(' ')
+        sortedWordlist = wordList.sort()
+    
+        for word in sortedWordlist
+            output += word
+            output += " "
+        end
+        output += "\n"
+    end
+    
+    puts(output)
+rescue
+    puts("Couldn't find file: " + ARGV[0])
+end
+
+
+
+
+
