@@ -26,23 +26,36 @@
 
 puts("Running kwic in Ruby")
 
-inputFile = File.open('input.txt').read
+if ARGV.length != 1
+    puts "A file name is required!"
+    exit
+end
+
+inputFile = ""
 wordList = []
 sortedWordlist = []
 output = ""
-inputFile.each_line do |line|
-    print "#{line}\n"
-    wordList = line.split(' ')
-    sortedWordlist = wordList.sort()
 
-    for word in sortedWordlist
-        output += word
-        output += " "
+begin 
+    inputFile = File.open(ARGV[0]).read
+
+    inputFile.each_line do |line|
+        wordList = line.split(' ')
+        sortedWordlist = wordList.sort()
+    
+        for word in sortedWordlist
+            output += word
+            output += " "
+        end
+        output += "\n"
     end
-    output += "\n"
+    
+    puts(output)
+rescue
+    puts("Couldn't find file: " + ARGV[0])
 end
 
-puts(output)
+
 
 
 
