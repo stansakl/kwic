@@ -24,7 +24,6 @@
 //OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,13 +39,29 @@ namespace kwic_csharp
             if (args.Length == 1)
             {
                 string fileName = args[0];
+                string output = "";
 
                 try
                 {
                     IEnumerable<string> lines = File.ReadLines(fileName);
                     foreach(string line in lines)
                     {
-                        Console.WriteLine(line);
+                        string[] words = line.Split(' ');
+                        Array.Sort(words);
+
+                        foreach(string word in words)
+                        {
+                            if(word.EndsWith("\n"))
+                            {
+                                word.TrimEnd('\n');
+                            }
+                            output += word;
+                            output += " ";
+                        }
+
+                        output += "\n";
+
+                        Console.WriteLine(output);                       
                     }
                 }
                 catch(Exception e)
@@ -64,7 +79,6 @@ namespace kwic_csharp
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
-
 
         private static void ShowFileArgumentError()
         {
